@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class="text-center mb-2">Calculadora de Marketplaces</h1>
+    <section>
+        <div class="form-group container d-flex justify-content-center mb-2">
+            <label for="custo" class="mx-3">Custo: </label>
+            <input type="number" step="0.1" class="form-control w-25" id="custo"/>
+        </div>
+        <div class="form-group container d-flex justify-content-center">
+            <label for="frete" class="mx-3">Frete: </label>
+            <input type="number" step="0.1" class="form-control w-25" id="frete" />
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <button type="submit" class="btn btn-primary" onclick="calcular()">Calcular</button>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Mercado Livre Clássico - <span><span id="margemFinalMlClassico"></span></span>
+                    </th>
+                    <th scope="col">
+                        Mercado Livre Premium - <span><span id="margemFinalMlPremium"></span></span>
+                    </th>
+                    <th scope="col">
+                        B2W - <span><span id="margemFinalB2W"></span></span>
+                    </th>
+                    
+                    <th scope="col">
+                        Magazine Luiza - <span><span id="margemFinalMagalu"></span></span>
+                    </th>
+                    <th scope="col">
+                        Olist - <span><span id="margemFinalOlist"></span></span>
+                    </th>
+                    <th scope="col">
+                        Shopee - <span><span id="margemFinalShopee"></span></span>
+                    </th>
+                    <th scope="col">
+                        Ianni - <span><span id="margemFinalIanni"></span></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        <span>R$<span id="vendaFinalMlClassico"></span></span>
+                    </th>
+                    <th>
+                        <span>R$<span id="vendaFinalMlPremium"></span></span>
+                    </th>
+                    <th>
+                        <span>R$<span id="vendaFinalB2W"></span></span>
+                    </th>
+                    <th>
+                        <span>R$<span id="vendaFinalMagalu"></span></span>
+                    </th>
+                    <th>
+                        <span>R$<span id="vendaFinalOlist"></span></span>
+                    </th>
+                    <th>
+                        <span>R$<span id="vendaFinalShopee"></span></span>
+                    </th>
+                    <th>
+                        <span>R$<span id="vendaFinalIanni"></span></span>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+
+</html>
