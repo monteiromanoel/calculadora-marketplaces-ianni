@@ -10,84 +10,135 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js"></script>
+    <script type="text/javascript" src="./table-to-excel/dist/tableToExcel.js"></script>
+    <script src="./js/calculos.js"></script>
     <title>Document</title>
 </head>
 
 <body>
-    <h1 class="text-center mb-2">Calculadora de Marketplaces</h1>
     <section>
-        <div class="form-group container d-flex justify-content-center mb-2">
-            <label for="custo" class="mx-3">Custo: </label>
-            <input type="number" step="0.1" class="form-control w-25" id="custo"/>
-        </div>
-        <div class="form-group container d-flex justify-content-center">
-            <label for="frete" class="mx-3">Frete: </label>
-            <input type="number" step="0.1" class="form-control w-25" id="frete" />
-        </div>
+        <h1 class="text-center mb-2">Calculadora de Marketplaces</h1>
+        <section class="container d-flex justify-content-center gap-2 mb-2">
+            <div class="form-group group-inputs">
+                <label for="custo" class="mx-3">SKU: </label>
+                <input type="text" class="form-control" id="sku" autofocus placeholder="1234" />
+            </div>
+            <div class="form-group group-inputs">
+                <label for="custo" class="mx-3">Custo: </label>
+                <input type="number" step="0.1" class="form-control" id="custo" placeholder="0,00" />
+            </div>
+            <div class="form-group group-inputs">
+                <label for="frete" class="mx-3">Frete: </label>
+                <input type="number" step="0.1" class="form-control" id="frete" placeholder="0,00" />
+                <small>
+                    <p class="text-muted text-start text-wrap">Obs.: Caso deixar zerado, será adicionado
+                        R$6,00 de frete automaticamente.</p>
+                </small>
+            </div>
+        </section>
         <div class="d-flex justify-content-center mt-2">
-            <button type="submit" class="btn btn-primary" onclick="calcular()">Calcular</button>
+            <button type="submit" class="btn btn-primary shadow" onclick="calcular()">Calcular e Adicionar</button>
         </div>
     </section>
+
 
     <hr>
 
     <section class="container">
-        <table class="table">
+        <table class="table" id="table">
             <thead>
                 <tr>
                     <th scope="col">
-                        Mercado Livre Clássico - <span><span id="margemFinalMlClassico"></span></span>
+                        SKU</span>
                     </th>
                     <th scope="col">
-                        Mercado Livre Premium - <span><span id="margemFinalMlPremium"></span></span>
+                        Custo</span>
                     </th>
                     <th scope="col">
-                        B2W - <span><span id="margemFinalB2W"></span></span>
-                    </th>
-                    
-                    <th scope="col">
-                        Magazine Luiza - <span><span id="margemFinalMagalu"></span></span>
+                        Mercado Livre Clássico - 1.45%</span>
                     </th>
                     <th scope="col">
-                        Olist - <span><span id="margemFinalOlist"></span></span>
+                        Mercado Livre Premium - 1.45%</span>
                     </th>
                     <th scope="col">
-                        Shopee - <span><span id="margemFinalShopee"></span></span>
+                        B2W - 1.45%
+                    </th>
+
+                    <th scope="col">
+                        Magazine Luiza - 1.51%
                     </th>
                     <th scope="col">
-                        Ianni - <span><span id="margemFinalIanni"></span></span>
+                        Olist - 1.45%
+                    <th scope="col">
+                        Shopee - 1.51%
+                    </th>
+                    <th scope="col">
+                        Ianni - 1.44%
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="resultadoTabela">
                 <tr>
                     <th>
-                        <span>R$<span id="vendaFinalMlClassico"></span></span>
+                        <span id="skuProduto"></span>
                     </th>
                     <th>
-                        <span>R$<span id="vendaFinalMlPremium"></span></span>
+                        <span id="vendaFinalMlClassico"></span>
                     </th>
                     <th>
-                        <span>R$<span id="vendaFinalB2W"></span></span>
+                        <span id="vendaFinalMlPremium"></span>
                     </th>
                     <th>
-                        <span>R$<span id="vendaFinalMagalu"></span></span>
+                        <span id="vendaFinalB2W"></span>
                     </th>
                     <th>
-                        <span>R$<span id="vendaFinalOlist"></span></span>
+                        <span id="vendaFinalMagalu"></span>
                     </th>
                     <th>
-                        <span>R$<span id="vendaFinalShopee"></span></span>
+                        <span id="vendaFinalOlist"></span>
                     </th>
                     <th>
-                        <span>R$<span id="vendaFinalIanni"></span></span>
+                        <span id="vendaFinalShopee"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalIanni"></span>
                     </th>
                 </tr>
             </tbody>
         </table>
     </section>
+    <section class="fixed-bottom mb-2 d-flex justify-content-end mx-3">
+        <button type="button" class="btn btn-success" id="button-excel">Exportar Dados</button>
+    </section>
 
+    <script>
+        document.getElementById("custo").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                calcular();
+            }
+        });
+
+        document.getElementById("frete").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                calcular();
+            }
+        });
+
+        document.getElementById("sku").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                calcular();
+            }
+        });
+
+        let button = document.querySelector("#button-excel")
+        button.addEventListener("click", e => {
+            let table = document.querySelector("#table");
+            TableToExcel.convert(table);
+        })
+    </script>
 </body>
 
 </html>

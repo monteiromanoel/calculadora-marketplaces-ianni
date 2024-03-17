@@ -1,3 +1,7 @@
 .col {
     width: fit-content!important;
 }
+
+.group-inputs {
+    max-width: 33%!important;
+}

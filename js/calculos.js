@@ -1,19 +1,46 @@
 function calcular(){
     let custo = parseFloat(document.getElementById("custo").value);
     let frete = parseFloat(document.getElementById("frete").value);
+    let sku = document.getElementById("sku").value.trim();
 
     if (isNaN(frete) || frete === 0 || frete === undefined || frete === null) {
         frete = 6;
     }
 
+    let mlClassico = calcularMercadoLivreClassico(custo, frete);
+    let mlPremium = calcularMercadoLivrePremium(custo, frete);
+    let b2w = calcularB2W(custo, frete);
+    let ianni = calcularIanni(custo);
+    let magalu = calcularMagalu(custo);
+    let olist = calcularOlist(custo, frete);
+    let shopee = calcularShopee(custo);
 
-    calcularMercadoLivreClassico(custo, frete)
-    calcularMercadoLivrePremium(custo, frete)
-    calcularB2W(custo, frete);
-    calcularIanni(custo);
-    calcularMagalu(custo);
-    calcularOlist(custo);
-    calcularShopee(custo);
+    adicionarLinhaTabela(sku, custo, [mlClassico, mlPremium, b2w, magalu, olist, shopee, ianni]);
+
+    document.getElementById("custo").value = "";
+    document.getElementById("frete").value = "";
+    document.getElementById("sku").value = "";
+
+}
+
+function adicionarLinhaTabela(sku, custo, valores) {
+    let tabela = document.getElementById("resultadoTabela");
+    let newRow = tabela.insertRow();
+
+    // Inserir o SKU e o Custo nas primeiras células da linha
+    let skuCell = newRow.insertCell();
+    skuCell.textContent = sku;
+
+    let custoCell = newRow.insertCell();
+    custoCell.textContent = custo.toFixed(2);
+
+    // Inserir os valores nas células restantes
+    for (let i = 0; i < valores.length; i++) {
+        let newCell = newRow.insertCell();
+        // Verificar se o valor é um número antes de chamar toFixed
+        let value = isNaN(valores[i]) ? valores[i] : valores[i].toFixed(2);
+        newCell.textContent = value;
+    }
 }
 
 function calcularMercadoLivreClassico(custo, frete) {
@@ -36,8 +63,8 @@ function calcularMercadoLivreClassico(custo, frete) {
         precoVendaFinal = precoVenda;
     }
 
-    document.getElementById("vendaFinalMlClassico").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalMlClassico").textContent = porcentagemFinal.toFixed(2) + "%";
+    return precoVendaFinal;
+    //document.getElementById("margemFinalMlClassico").textContent = porcentagemFinal.toFixed(2) + "%";
 }
 
 function calcularMercadoLivrePremium(custo, frete) {
@@ -60,8 +87,8 @@ function calcularMercadoLivrePremium(custo, frete) {
         precoVendaFinal = precoVenda;
     }
 
-    document.getElementById("vendaFinalMlPremium").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalMlPremium").textContent = porcentagemFinal.toFixed(2) + "%";
+    return precoVendaFinal;
+    //document.getElementById("margemFinalMlPremium").textContent = porcentagemFinal.toFixed(2) + "%";
 }
 
 
@@ -85,8 +112,8 @@ function calcularShopee(custo) {
         precoVendaFinal = precoVenda;
     }
 
-    document.getElementById("vendaFinalShopee").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalShopee").textContent = porcentagemFinal.toFixed(2) + "%"; 
+    return precoVendaFinal;
+    //document.getElementById("margemFinalShopee").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
 
 function calcularOlist(custo, frete) {
@@ -108,10 +135,8 @@ function calcularOlist(custo, frete) {
         precoVendaFinal = precoVenda * 1.14;
     }
 
-
-
-    document.getElementById("vendaFinalOlist").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalOlist").textContent = porcentagemFinal.toFixed(2) + "%"; 
+    return precoVendaFinal;
+    //document.getElementById("margemFinalOlist").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
 
 function calcularB2W(custo, frete) {
@@ -134,11 +159,12 @@ function calcularB2W(custo, frete) {
         precoVendaFinal = precoVenda;
     }
 
-    document.getElementById("vendaFinalB2W").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalB2W").textContent = porcentagemFinal.toFixed(2) + "%";
+    return precoVendaFinal;
+    //document.getElementById("margemFinalB2W").textContent = porcentagemFinal.toFixed(2) + "%";
 }
 
 function calcularMagalu(custo) {
+    /* 
     let taxa = 0.16;
     let imposto = 0.10;
     let tarifaFixa = 3;
@@ -157,12 +183,14 @@ function calcularMagalu(custo) {
         porcentagemFinal = bruto / custo;
         precoVendaFinal = precoVenda;
     }
-
-    document.getElementById("vendaFinalMagalu").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalMagalu").textContent = porcentagemFinal.toFixed(2) + "%"; 
+    */
+    let precoVendaFinal = custo * 2.08;
+    return precoVendaFinal;
+    //document.getElementById("margemFinalMagalu").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
 
 function calcularIanni(custo) {
+    /* 
     let taxa = 0.10;
     let imposto = 0.10;
 
@@ -180,7 +208,8 @@ function calcularIanni(custo) {
         porcentagemFinal = bruto / custo;
         precoVendaFinal = precoVenda;
     }
-
-    document.getElementById("vendaFinalIanni").textContent = precoVendaFinal.toFixed(2);
-    document.getElementById("margemFinalIanni").textContent = porcentagemFinal.toFixed(2) + "%"; 
+    */
+    let precoVendaFinal = custo * 1.8;
+    return precoVendaFinal;
+    //document.getElementById("margemFinalIanni").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
