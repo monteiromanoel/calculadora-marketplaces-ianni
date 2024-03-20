@@ -32,13 +32,13 @@ function adicionarLinhaTabela(sku, custo, valores) {
     skuCell.textContent = sku;
 
     let custoCell = newRow.insertCell();
-    custoCell.textContent = custo.toFixed(2);
+    custoCell.textContent = custo.toFixed(2).replace(".", ",");
 
     // Inserir os valores nas células restantes
     for (let i = 0; i < valores.length; i++) {
         let newCell = newRow.insertCell();
-        // Verificar se o valor é um número antes de chamar toFixed
-        let value = isNaN(valores[i]) ? valores[i] : valores[i].toFixed(2);
+        // Verificar se o valor é um número antes de chamar toFixed e substituir o ponto por vírgula
+        let value = isNaN(valores[i]) ? valores[i] : valores[i].toFixed(2).replace(".", ",");
         newCell.textContent = value;
     }
 }
