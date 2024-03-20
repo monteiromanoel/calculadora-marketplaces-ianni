@@ -17,13 +17,20 @@
 </head>
 
 <body>
-    <div class="float-start p-3 fs-5">
-        <div class="btn btn-dark btn-configurar type=" button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasMargens" aria-controls="offcanvasMargens">
-            <i class="fa-solid fa-gear"></i>
-            <span class="text-configurar">Configurar</span>
+    <a href="./test.html" style="display: none;">test</a>
+    <nav class="navbar navbar-dark bg-dark d-flex justify-content-center">
+        <div class="container-fluid">
+            <div class="float-start">
+                <div class="btn btn-dark btn-configurar" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasMargens" aria-controls="offcanvasMargens">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="text-configurar">Configurar</span>
+                </div>
+            </div>
         </div>
-    </div>
+        <span class="navbar-brand mb-0 fs-1">Calculadora de Marketplaces</span>
+    </nav>
+
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMargens" aria-labelledby="offcanvasMagensLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasMargensLabel">Configurar Margens de Lucro</h5>
@@ -73,7 +80,7 @@
     </div>
 
     <section>
-        <h1 class="text-center mb-2">Calculadora de Marketplaces</h1>
+        <h1 class="text-center mb-2"></h1>
         <section class="container d-flex justify-content-center gap-2 mb-2">
             <div class="form-group group-inputs">
                 <label for="custo" class="mx-3">SKU: </label>
@@ -93,37 +100,46 @@
             </div>
         </section>
         <div class="d-flex justify-content-center gap-2 mt-2">
-            <button class="btn btn-light text-secondary" onclick="toggleAjuda()"> <i class="fa-regular fa-circle-question"></i> Ajuda</button>
+            <button class="btn btn-light text-secondary" onclick="toggleAjuda()"> <i
+                    class="fa-regular fa-circle-question"></i> Ajuda</button>
             <button type="submit" class="btn btn-primary shadow" onclick="calcular()">Calcular e Adicionar</button>
+            <button type="submit" class="btn btn-secondary shadow" onclick="limparTabela()"><i class="fa-solid fa-trash-can px-1"></i>
+                Limpar</button>
         </div>
+
     </section>
-    
+
     <section class="campo-ajuda">
         <hr>
         <div class="container">
             <p>
-                <strong>Passo 1: </strong> Adicione o SKU (Opcional, mas pode ajudar na hora de exportar os produtos e se encontrar)
+                <strong>Passo 1: </strong> Adicione o SKU (Opcional, mas pode ajudar na hora de exportar os produtos e
+                se encontrar)
             </p>
             <p>
                 <strong>Passo 2: </strong> Adicione o Custo do produto
             </p>
             <p>
-                <strong>Passo 3: </strong> Adicione o Frete do envio (Caso não for adicionado no campo, serão adicionados R$6,00 automaticamente)
+                <strong>Passo 3: </strong> Adicione o Frete do envio (Caso não for adicionado no campo, serão
+                adicionados R$6,00 automaticamente)
             </p>
             <p>
-                <strong>Passo 4: </strong> Clique em <span class="btn btn-primary btn-sm ">Calcular e Adicionar</span> para fazer os cálculos automaticamente e adicionar na tabela os valores
+                <strong>Passo 4: </strong> Clique em <span class="btn btn-primary btn-sm ">Calcular e Adicionar</span>
+                para fazer os cálculos automaticamente e adicionar na tabela os valores
             </p>
             <p>
-                <strong>Passo 5: </strong> Após adicionados os produtos desejados, clique em <span class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx (Excel)
+                <strong>Passo 5: </strong> Após adicionados os produtos desejados, clique em <span
+                    class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx
+                (Excel)
             </p>
-            
+
         </div>
     </section>
 
     <hr>
 
     <section class="container-fluid">
-        <table class="table table-striped table-hover table-responsive" id="table">
+        <table class="table table-responsive table-bordered" id="table">
             <thead>
                 <tr>
                     <th scope="col">
@@ -212,13 +228,18 @@
         });
 
         function toggleAjuda() {
-        let campoAjuda = document.querySelector('.campo-ajuda');
-        if (campoAjuda.style.display === 'none' || campoAjuda.style.display === '') {
-            campoAjuda.style.display = 'block';
-        } else {
-            campoAjuda.style.display = 'none';
+            let campoAjuda = document.querySelector('.campo-ajuda');
+            if (campoAjuda.style.display === 'none' || campoAjuda.style.display === '') {
+                campoAjuda.style.display = 'block';
+            } else {
+                campoAjuda.style.display = 'none';
+            }
         }
-    }
+
+        function limparTabela() {
+            var tabela = document.getElementById("resultadoTabela");
+            tabela.innerHTML = ""; 
+        }
 
         let button = document.querySelector("#button-excel")
         button.addEventListener("click", e => {
