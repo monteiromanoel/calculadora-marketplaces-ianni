@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="./css/style.css">
     <script type="text/javascript" src="./table-to-excel/dist/tableToExcel.js"></script>
     <script src="./js/calculos.js"></script>
-    <title>Document</title>
+    <script src="./js/calculosInput.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <title>Calculadora Ianni</title>
 </head>
 
 <body>
@@ -30,6 +32,199 @@
         </div>
         <span class="navbar-brand mb-0 fs-1">Calculadora de Marketplaces</span>
     </nav>
+
+    <section>
+        <h1 class="text-center mb-2"></h1>
+        <section class="container d-flex justify-content-center gap-2 mb-2">
+            <div class="form-group group-inputs">
+                <label for="custo" class="mx-3">SKU: </label>
+                <input type="text" class="form-control" id="sku" autofocus placeholder="1234" />
+            </div>
+            <div class="form-group group-inputs">
+                <label for="custo" class="mx-3">Custo: </label>
+                <input type="number" step="0.1" class="form-control" id="custo" placeholder="0,00" />
+            </div>
+            <div class="form-group group-inputs">
+                <label for="frete" class="mx-3">Frete: </label>
+                <input type="number" step="0.1" class="form-control" id="frete" placeholder="0,00" />
+                <small>
+                    <p class="text-muted text-start text-wrap">Obs.: Caso deixar zerado, será adicionado
+                        R$6,00 de frete automaticamente.</p>
+                </small>
+            </div>
+        </section>
+
+        <div class="d-flex justify-content-center gap-2 mt-2">
+            <button class="btn btn-light text-secondary" onclick="toggleAjuda()"> <i
+                    class="fa-regular fa-circle-question"></i> Ajuda</button>
+            <button type="submit" class="btn btn-primary shadow" onclick="calcular()">Calcular e Adicionar</button>
+            <button type="submit" class="btn btn-danger shadow" onclick="limparTabela()"><i
+                    class="fa-solid fa-trash-can px-1"></i>
+                Limpar</button>
+        </div>
+
+        <h2 class="text-center my-2">ou</h2>
+        <div class="d-flex justify-content-center gap-4 mt-2">
+            <input type="file" id="fileInput" accept=".xlsx">
+            <button class="btn btn-primary" onclick="calcularInput()">Calcular</button>
+        </div>
+
+    </section>
+
+    <section class="campo-ajuda">
+        <hr>
+        <div class="container">
+            <h3>Inserção Manual</h3>
+            <p>
+                <strong>Passo 1: </strong> Adicione o SKU (Opcional, mas pode ajudar na hora de exportar os produtos e
+                se encontrar)
+            </p>
+            <p>
+                <strong>Passo 2: </strong> Adicione o Custo do produto
+            </p>
+            <p>
+                <strong>Passo 3: </strong> Adicione o Frete do envio (Caso não for adicionado no campo, serão
+                adicionados R$6,00 automaticamente)
+            </p>
+            <p>
+                <strong>Passo 4: </strong> Clique em <span class="btn btn-primary btn-sm ">Calcular e Adicionar</span>
+                para fazer os cálculos automaticamente e adicionar na tabela os valores
+            </p>
+            <p>
+                <strong>Passo 5: </strong> Após adicionados os produtos desejados, clique em <span
+                    class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx
+                (Excel)
+            </p>
+            <hr>
+            <h3>Inserção por Tabela</h3>
+            <p>
+                <strong>Passo 1: </strong> Baixe a tabela modelo aqui: 
+                <a href="./static/padrao-tabela.xlsx" class="btn btn-sucess bg-success btn-sm" role="button">Baixar</a>
+            </p>
+            <p>
+                <strong>Passo 2: </strong> Após adicionados os dados no sistema, clique em <span class="btn btn-primary btn-sm ">Calcular</span>
+                para fazer os cálculos automaticamente e adicionar na tabela os valores
+            </p>
+            <p>
+                <strong>Passo 3: </strong> Após calculados, clique em <span
+                    class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx
+                (Excel)
+            </p>
+
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="container-fluid">
+        <table class="table table-responsive table-bordered" id="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="bg-secondary">
+                        SKU</span>
+                    </th>
+                    <th scope="col" class="bg-secondary">
+                        Custo</span>
+                    </th>
+                    <th scope="col" class="bg-secondary">
+                        Frete</span>
+                    </th>
+                    <th scope="col">
+                        Mercado Livre Clássico - 1.45%</span>
+                    </th>
+                    <th scope="col">
+                        Mercado Livre Premium - 1.45%</span>
+                    </th>
+                    <th scope="col">
+                        B2W - 1.45%
+                    </th>
+
+                    <th scope="col">
+                        Magazine Luiza - 1.51%
+                    </th>
+                    <th scope="col">
+                        Olist - 1.45%
+                    <th scope="col">
+                        Shopee - 1.51%
+                    </th>
+                    <th scope="col">
+                        Ianni - 1.44%
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="resultadoTabela">
+                <tr>
+                    <th>
+                        <span id="skuProduto"></span>
+                    </th>
+                    <th>
+                        <span id="custoProduto"></span>
+                    </th>
+                    <th>
+                        <span id="freteEnvio"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalMlClassico"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalMlPremium"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalB2W"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalMagalu"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalOlist"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalShopee"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalIanni"></span>
+                    </th>
+                </tr>
+            </tbody>
+            <tbody id="resultadoTabelaInput">
+                <tr>
+                    <th>
+                        <span id="skuProduto"></span>
+                    </th>
+                    <th>
+                        <span id="custoProduto"></span>
+                    </th>
+                    <th>
+                        <span id="freteEnvio"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalMlClassico"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalMlPremium"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalB2W"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalMagalu"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalOlist"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalShopee"></span>
+                    </th>
+                    <th>
+                        <span id="vendaFinalIanni"></span>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="fixed-bottom mb-2 d-flex justify-content-end mx-3">
+        <button type="button" class="btn btn-success btn-lg" id="button-excel">Exportar Dados</button>
+    </section>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMargens" aria-labelledby="offcanvasMagensLabel">
         <div class="offcanvas-header">
@@ -79,132 +274,6 @@
         </div>
     </div>
 
-    <section>
-        <h1 class="text-center mb-2"></h1>
-        <section class="container d-flex justify-content-center gap-2 mb-2">
-            <div class="form-group group-inputs">
-                <label for="custo" class="mx-3">SKU: </label>
-                <input type="text" class="form-control" id="sku" autofocus placeholder="1234" />
-            </div>
-            <div class="form-group group-inputs">
-                <label for="custo" class="mx-3">Custo: </label>
-                <input type="number" step="0.1" class="form-control" id="custo" placeholder="0,00" />
-            </div>
-            <div class="form-group group-inputs">
-                <label for="frete" class="mx-3">Frete: </label>
-                <input type="number" step="0.1" class="form-control" id="frete" placeholder="0,00" />
-                <small>
-                    <p class="text-muted text-start text-wrap">Obs.: Caso deixar zerado, será adicionado
-                        R$6,00 de frete automaticamente.</p>
-                </small>
-            </div>
-        </section>
-        <div class="d-flex justify-content-center gap-2 mt-2">
-            <button class="btn btn-light text-secondary" onclick="toggleAjuda()"> <i
-                    class="fa-regular fa-circle-question"></i> Ajuda</button>
-            <button type="submit" class="btn btn-primary shadow" onclick="calcular()">Calcular e Adicionar</button>
-            <button type="submit" class="btn btn-secondary shadow" onclick="limparTabela()"><i class="fa-solid fa-trash-can px-1"></i>
-                Limpar</button>
-        </div>
-
-    </section>
-
-    <section class="campo-ajuda">
-        <hr>
-        <div class="container">
-            <p>
-                <strong>Passo 1: </strong> Adicione o SKU (Opcional, mas pode ajudar na hora de exportar os produtos e
-                se encontrar)
-            </p>
-            <p>
-                <strong>Passo 2: </strong> Adicione o Custo do produto
-            </p>
-            <p>
-                <strong>Passo 3: </strong> Adicione o Frete do envio (Caso não for adicionado no campo, serão
-                adicionados R$6,00 automaticamente)
-            </p>
-            <p>
-                <strong>Passo 4: </strong> Clique em <span class="btn btn-primary btn-sm ">Calcular e Adicionar</span>
-                para fazer os cálculos automaticamente e adicionar na tabela os valores
-            </p>
-            <p>
-                <strong>Passo 5: </strong> Após adicionados os produtos desejados, clique em <span
-                    class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx
-                (Excel)
-            </p>
-
-        </div>
-    </section>
-
-    <hr>
-
-    <section class="container-fluid">
-        <table class="table table-responsive table-bordered" id="table">
-            <thead>
-                <tr>
-                    <th scope="col">
-                        SKU</span>
-                    </th>
-                    <th scope="col">
-                        Custo</span>
-                    </th>
-                    <th scope="col">
-                        Mercado Livre Clássico - 1.45%</span>
-                    </th>
-                    <th scope="col">
-                        Mercado Livre Premium - 1.45%</span>
-                    </th>
-                    <th scope="col">
-                        B2W - 1.45%
-                    </th>
-
-                    <th scope="col">
-                        Magazine Luiza - 1.51%
-                    </th>
-                    <th scope="col">
-                        Olist - 1.45%
-                    <th scope="col">
-                        Shopee - 1.51%
-                    </th>
-                    <th scope="col">
-                        Ianni - 1.44%
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="resultadoTabela">
-                <tr>
-                    <th>
-                        <span id="skuProduto"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalMlClassico"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalMlPremium"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalB2W"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalMagalu"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalOlist"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalShopee"></span>
-                    </th>
-                    <th>
-                        <span id="vendaFinalIanni"></span>
-                    </th>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    <section class="fixed-bottom mb-2 d-flex justify-content-end mx-3">
-        <button type="button" class="btn btn-success" id="button-excel">Exportar Dados</button>
-    </section>
-
     <script>
         document.getElementById("custo").addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
@@ -234,19 +303,62 @@
             } else {
                 campoAjuda.style.display = 'none';
             }
-        }
+        };
 
         function limparTabela() {
             var tabela = document.getElementById("resultadoTabela");
-            tabela.innerHTML = ""; 
-        }
+            tabela.innerHTML = "";
+        };
 
         let button = document.querySelector("#button-excel")
         button.addEventListener("click", e => {
             let table = document.querySelector("#table");
             TableToExcel.convert(table);
-        })
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+                var jsonTable = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                // Limpa o corpo da tabela existente
+                document.querySelector('#table tbody').innerHTML = "";
+
+                // Adiciona os dados do arquivo XLSX à partir da segunda linha da tabela
+                for (var i = 1; i < jsonTable.length; i++) {
+                    var rowData = jsonTable[i];
+                    var newRow = document.createElement('tr');
+
+                    // Adiciona os dados de SKU e Custo nas colunas correspondentes
+                    var skuCell = document.createElement('td');
+                    skuCell.textContent = rowData[0];
+                    newRow.appendChild(skuCell);
+
+                    var custoCell = document.createElement('td');
+                    custoCell.textContent = parseFloat(rowData[1]).toFixed(2).replace(".", ",");
+                    newRow.appendChild(custoCell);
+
+                    var freteCell = document.createElement('td');
+                    freteCell.textContent = parseFloat(rowData[2]).toFixed(2).replace(".", ",");
+                    newRow.appendChild(freteCell);
+
+                    // Adiciona a nova linha ao corpo da tabela
+                    document.querySelector('#table tbody').appendChild(newRow);
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+        });
+
+
     </script>
+
 </body>
 
 </html>

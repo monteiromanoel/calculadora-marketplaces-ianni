@@ -15,7 +15,7 @@ function calcular(){
     let olist = calcularOlist(custo, frete);
     let shopee = calcularShopee(custo);
 
-    adicionarLinhaTabela(sku, custo, [mlClassico, mlPremium, b2w, magalu, olist, shopee, ianni]);
+    adicionarLinhaTabela(sku, custo, frete, [mlClassico, mlPremium, b2w, magalu, olist, shopee, ianni]);
 
     document.getElementById("custo").value = "";
     document.getElementById("frete").value = "";
@@ -23,7 +23,7 @@ function calcular(){
 
 }
 
-function adicionarLinhaTabela(sku, custo, valores) {
+function adicionarLinhaTabela(sku, custo, frete, valores) {
     let tabela = document.getElementById("resultadoTabela");
     let newRow = tabela.insertRow();
 
@@ -33,6 +33,9 @@ function adicionarLinhaTabela(sku, custo, valores) {
 
     let custoCell = newRow.insertCell();
     custoCell.textContent = custo.toFixed(2).replace(".", ",");
+
+    let freteCell = newRow.insertCell();
+    freteCell.textContent = frete.toFixed(2).replace(".", ",");
 
     // Inserir os valores nas células restantes
     for (let i = 0; i < valores.length; i++) {
@@ -64,7 +67,6 @@ function calcularMercadoLivreClassico(custo, frete) {
     }
 
     return precoVendaFinal;
-    //document.getElementById("margemFinalMlClassico").textContent = porcentagemFinal.toFixed(2) + "%";
 }
 
 function calcularMercadoLivrePremium(custo, frete) {
@@ -88,7 +90,6 @@ function calcularMercadoLivrePremium(custo, frete) {
     }
 
     return precoVendaFinal;
-    //document.getElementById("margemFinalMlPremium").textContent = porcentagemFinal.toFixed(2) + "%";
 }
 
 
@@ -113,7 +114,6 @@ function calcularShopee(custo) {
     }
 
     return precoVendaFinal;
-    //document.getElementById("margemFinalShopee").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
 
 function calcularOlist(custo, frete) {
@@ -136,7 +136,6 @@ function calcularOlist(custo, frete) {
     }
 
     return precoVendaFinal;
-    //document.getElementById("margemFinalOlist").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
 
 function calcularB2W(custo, frete) {
@@ -160,7 +159,6 @@ function calcularB2W(custo, frete) {
     }
 
     return precoVendaFinal;
-    //document.getElementById("margemFinalB2W").textContent = porcentagemFinal.toFixed(2) + "%";
 }
 
 function calcularMagalu(custo) {

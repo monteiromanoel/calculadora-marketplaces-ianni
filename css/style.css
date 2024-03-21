@@ -21,3 +21,7 @@
 .group-inputs {
     max-width: 33%!important;
 }
+
+#resultadoTabelaInput {
+    display: none;
+}
