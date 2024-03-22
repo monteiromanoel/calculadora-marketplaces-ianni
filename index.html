@@ -20,13 +20,13 @@
 
 <body>
     <a href="./test.html" style="display: none;">test</a>
-    <nav class="navbar navbar-dark bg-dark d-flex justify-content-center">
+    <nav class="navbar navbar-dark bg-dark d-flex justify-content-center wrap">
         <div class="container-fluid">
             <div class="float-start">
                 <div class="btn btn-dark btn-configurar" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasMargens" aria-controls="offcanvasMargens">
-                    <i class="fa-solid fa-gear"></i>
-                    <span class="text-configurar">Configurar</span>
+                    <i class="fa-solid fa-gear rotate-center"></i>
+                    <span class="text-configurar text-wrap">Configurar</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
 
     <section>
         <h1 class="text-center mb-2"></h1>
-        <section class="container d-flex justify-content-center gap-2 mb-2">
+        <section class="container d-flex justify-content-center wrap gap-2 mb-2">
             <div class="form-group group-inputs">
                 <label for="custo" class="mx-3">SKU: </label>
                 <input type="text" class="form-control" id="sku" autofocus placeholder="1234" />
@@ -65,8 +65,8 @@
 
         <h2 class="text-center my-2">ou</h2>
         <div class="d-flex justify-content-center gap-4 mt-2">
-            <input type="file" id="fileInput" accept=".xlsx">
-            <button class="btn btn-primary" onclick="calcularInput()">Calcular</button>
+            <input type="file" id="fileInput" class="form-control w-50" accept=".xlsx" onchange="habilitarBotao()">
+            <button id="btnCalcular" class="btn btn-primary" onclick="calcularInput()" disabled>Calcular</button>
         </div>
 
     </section>
@@ -98,11 +98,12 @@
             <hr>
             <h3>Inserção por Tabela</h3>
             <p>
-                <strong>Passo 1: </strong> Baixe a tabela modelo aqui: 
+                <strong>Passo 1: </strong> Baixe a tabela modelo aqui:
                 <a href="./static/padrao-tabela.xlsx" class="btn btn-sucess bg-success btn-sm" role="button">Baixar</a>
             </p>
             <p>
-                <strong>Passo 2: </strong> Após adicionados os dados no sistema, clique em <span class="btn btn-primary btn-sm ">Calcular</span>
+                <strong>Passo 2: </strong> Após adicionados os dados no sistema, clique em <span
+                    class="btn btn-primary btn-sm ">Calcular</span>
                 para fazer os cálculos automaticamente e adicionar na tabela os valores
             </p>
             <p>
@@ -327,15 +328,12 @@
                 var worksheet = workbook.Sheets[firstSheetName];
                 var jsonTable = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-                // Limpa o corpo da tabela existente
                 document.querySelector('#table tbody').innerHTML = "";
 
-                // Adiciona os dados do arquivo XLSX à partir da segunda linha da tabela
                 for (var i = 1; i < jsonTable.length; i++) {
                     var rowData = jsonTable[i];
                     var newRow = document.createElement('tr');
 
-                    // Adiciona os dados de SKU e Custo nas colunas correspondentes
                     var skuCell = document.createElement('td');
                     skuCell.textContent = rowData[0];
                     newRow.appendChild(skuCell);
@@ -348,6 +346,15 @@
                     freteCell.textContent = parseFloat(rowData[2]).toFixed(2).replace(".", ",");
                     newRow.appendChild(freteCell);
 
+                    if (isNaN(parseFloat(rowData[1]))) {
+                        continue;
+                    }
+
+                    if (isNaN(parseFloat(rowData[2]))) {
+                        freteCell.textContent = "6,00";
+                        newRow.appendChild(freteCell);
+                    }
+
                     // Adiciona a nova linha ao corpo da tabela
                     document.querySelector('#table tbody').appendChild(newRow);
                 }
@@ -355,6 +362,18 @@
 
             reader.readAsArrayBuffer(file);
         });
+
+        function habilitarBotao() {
+            var fileInput = document.getElementById('fileInput');
+            var btnCalcular = document.getElementById('btnCalcular');
+
+
+            if (fileInput.files.length > 0) {
+                btnCalcular.disabled = false;
+            } else {
+                btnCalcular.disabled = true;
+            }
+        }
 
 
     </script>

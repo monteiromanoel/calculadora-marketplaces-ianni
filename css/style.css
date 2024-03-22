@@ -2,12 +2,25 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+@keyframes rotate-center {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
 * {
     font-family: Roboto, monospace;
 }
 
 .campo-ajuda {
     display: none;
+}
+
+.btn-configurar:hover .rotate-center {
+    animation: rotate-center 0.9s ease-in-out 0.1s both;
 }
 
 .btn {

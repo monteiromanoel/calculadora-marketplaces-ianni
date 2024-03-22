@@ -2,22 +2,22 @@ function calcularInput() {
     let tabela = document.getElementById("resultadoTabela");
     let linhas = tabela.rows;
 
-    // Começa do índice 1 para pular o cabeçalho
     for (let i = 0; i < linhas.length; i++) {
         let linha = linhas[i];
         let cells = linha.cells;
 
-        // Se a linha não for a primeira (cabeçalho) e não estiver vazia
         if (i !== 0 && cells.length > 0) {
-            // Extrai os custos da segunda célula da linha
             let custo = parseFloat(cells[1].textContent);
             let frete = parseFloat(cells[2].textContent);
 
-            // Verifica se existem células suficientes na linha
+            if (isNaN(custo)) {
+                custo = 6;
+            }
+
             if (cells.length < 10) {
-                // Cria células adicionais, se necessário
+                
                 for (let j = cells.length; j < 10; j++) {
-                    linha.insertCell(-1); // Insere uma nova célula no final da linha
+                    linha.insertCell(-1); 
                 }
             }
             function calcularMercadoLivreClassico(custo, frete) {
