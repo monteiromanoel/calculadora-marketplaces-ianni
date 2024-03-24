@@ -3,9 +3,28 @@ function calcular(){
     let frete = parseFloat(document.getElementById("frete").value);
     let sku = document.getElementById("sku").value.trim();
 
+
     if (isNaN(frete) || frete === 0 || frete === undefined || frete === null) {
         frete = 6;
     }
+
+    if (isNaN(custo)) {
+        alert("Favor, adicione um valor de custo!");
+        return;
+    }
+
+    /*
+    let porcentagemFinalMl = 1.45;
+    let porcentagemFinalB2W = 1.45;
+    let porcentagemFinalShopee = 1.51;
+    let porcentagemFinalMagalu = 1.51;
+    let porcentagemFinalOlist = 1.45;
+    let porcentagemFinalIanni = 1.44;
+    */
+
+    let porcentagemFinal = 0;
+    let precoVendaFinal = 0;
+    let precoVenda = custo * 0.5;
 
     let mlClassico = calcularMercadoLivreClassico(custo, frete);
     let mlPremium = calcularMercadoLivrePremium(custo, frete);
@@ -46,14 +65,13 @@ function adicionarLinhaTabela(sku, custo, frete, valores) {
     }
 }
 
-function calcularMercadoLivreClassico(custo, frete) {
+function calcularMercadoLivreClassico(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal, porcentagemFinalMl) {
     let taxa = 0.115;
     let imposto = 0.10;
 
-    let precoVenda = custo * 0.5;
-
-    let porcentagemFinal = 0;
-    let precoVendaFinal = 0;
+    porcentagemFinal = 0;
+    precoVendaFinal = 0;
+    precoVenda = custo * 0.5;
 
     while (porcentagemFinal <= 1.45) {
         precoVenda += 1;
@@ -69,14 +87,13 @@ function calcularMercadoLivreClassico(custo, frete) {
     return precoVendaFinal;
 }
 
-function calcularMercadoLivrePremium(custo, frete) {
+function calcularMercadoLivrePremium(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal) {
     let taxa = 0.165;
     let imposto = 0.10;
 
-    let precoVenda = custo * 0.5;
-
-    let porcentagemFinal = 0;
-    let precoVendaFinal = 0;
+    porcentagemFinal = 0;
+    precoVendaFinal = 0;
+    precoVenda = custo * 0.5;
 
     while (porcentagemFinal <= 1.45) {
         precoVenda += 1;
@@ -93,15 +110,14 @@ function calcularMercadoLivrePremium(custo, frete) {
 }
 
 
-function calcularShopee(custo) {
+function calcularShopee(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     let taxa = 0.20;
     let imposto = 0.10;
     let tarifaFixa = 3;
 
-    let precoVenda = custo * 0.8;
-
-    let porcentagemFinal = 0;
-    let precoVendaFinal = 0;
+    porcentagemFinal = 0;
+    precoVendaFinal = 0;
+    precoVenda = custo * 0.5;
 
     while (porcentagemFinal <= 1.51) {
         precoVenda += 1;
@@ -116,14 +132,13 @@ function calcularShopee(custo) {
     return precoVendaFinal;
 }
 
-function calcularOlist(custo, frete) {
+function calcularOlist(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     let taxa = 0.21;
     let imposto = 0.10;
 
-    let precoVenda = custo * 0.8;
-
-    let porcentagemFinal = 0;
-    let precoVendaFinal = 0;
+    porcentagemFinal = 0;
+    precoVendaFinal = 0;
+    precoVenda = custo * 0.5;
 
     while (porcentagemFinal <= 1.45) {
         precoVenda += 1;
@@ -138,14 +153,13 @@ function calcularOlist(custo, frete) {
     return precoVendaFinal;
 }
 
-function calcularB2W(custo, frete) {
+function calcularB2W(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal) {
     let taxa = 0.165;
     let imposto = 0.10;
 
-    let precoVenda = custo * 0.5;
-
-    let porcentagemFinal = 0;
-    let precoVendaFinal = 0;
+    porcentagemFinal = 0;
+    precoVendaFinal = 0;
+    precoVenda = custo * 0.5;
 
     while (porcentagemFinal <= 1.45) {
         precoVenda += 1;
@@ -161,7 +175,7 @@ function calcularB2W(custo, frete) {
     return precoVendaFinal;
 }
 
-function calcularMagalu(custo) {
+function calcularMagalu(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     /* 
     let taxa = 0.16;
     let imposto = 0.10;
@@ -182,12 +196,12 @@ function calcularMagalu(custo) {
         precoVendaFinal = precoVenda;
     }
     */
-    let precoVendaFinal = custo * 2.08;
+    precoVendaFinal = custo * 2.08;
     return precoVendaFinal;
     //document.getElementById("margemFinalMagalu").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
 
-function calcularIanni(custo) {
+function calcularIanni(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     /* 
     let taxa = 0.10;
     let imposto = 0.10;
@@ -207,7 +221,7 @@ function calcularIanni(custo) {
         precoVendaFinal = precoVenda;
     }
     */
-    let precoVendaFinal = custo * 1.8;
+    precoVendaFinal = custo * 1.8;
     return precoVendaFinal;
     //document.getElementById("margemFinalIanni").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }

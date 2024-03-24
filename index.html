@@ -28,10 +28,71 @@
                     <i class="fa-solid fa-gear rotate-center"></i>
                     <span class="text-configurar text-wrap">Configurar</span>
                 </div>
+                <button class="btn btn-light text-secondary" data-bs-toggle="modal" data-bs-target="#ajudaModal"> <i
+                        class="fa-regular fa-circle-question"></i> Ajuda</button>
             </div>
         </div>
         <span class="navbar-brand mb-0 fs-1">Calculadora de Marketplaces</span>
     </nav>
+
+    <div class="modal fade" id="ajudaModal" tabindex="-1" aria-labelledby="ajudaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ajudaModalLabel">Como Calcular?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <h3>Inserção Manual</h3>
+                        <p>
+                            <strong>Passo 1: </strong> Adicione o SKU (Opcional, mas pode ajudar na hora de exportar os
+                            produtos e
+                            se encontrar)
+                        </p>
+                        <p>
+                            <strong>Passo 2: </strong> Adicione o Custo do produto
+                        </p>
+                        <p>
+                            <strong>Passo 3: </strong> Adicione o Frete do envio (Caso não for adicionado no campo,
+                            serão
+                            adicionados R$6,00 automaticamente)
+                        </p>
+                        <p>
+                            <strong>Passo 4: </strong> Clique em <span class="btn btn-primary btn-sm ">Calcular e
+                                Adicionar</span>
+                            para fazer os cálculos automaticamente e adicionar na tabela os valores
+                        </p>
+                        <p>
+                            <strong>Passo 5: </strong> Após adicionados os produtos desejados, clique em <span
+                                class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato
+                            .xlsx
+                            (Excel)
+                        </p>
+                        <hr>
+                        <h3>Inserção por Tabela</h3>
+                        <p>
+                            <strong>Passo 1: </strong> Baixe a tabela modelo aqui:
+                            <a href="./static/padrao-tabela.xlsx" class="btn btn-sucess bg-success btn-sm"
+                                role="button">Baixar</a>
+                        </p>
+                        <p>
+                            <strong>Passo 2: </strong> Após adicionados os dados no sistema, clique em <span
+                                class="btn btn-primary btn-sm ">Calcular</span>
+                            para fazer os cálculos automaticamente e adicionar na tabela os valores
+                        </p>
+                        <p>
+                            <strong>Passo 3: </strong> Após calculados, clique em <span
+                                class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato
+                            .xlsx
+                            (Excel)
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section>
         <h1 class="text-center mb-2"></h1>
@@ -48,22 +109,22 @@
                 <label for="frete" class="mx-3">Frete: </label>
                 <input type="number" step="0.1" class="form-control" id="frete" placeholder="0,00" />
                 <small>
-                    <p class="text-muted text-start text-wrap">Obs.: Caso deixar zerado, será adicionado
+                    <p class="text-muted text-start text-wrap">Obs.: Caso deixar zerado, serão adicionados
                         R$6,00 de frete automaticamente.</p>
                 </small>
             </div>
         </section>
 
         <div class="d-flex justify-content-center gap-2 mt-2">
-            <button class="btn btn-light text-secondary" onclick="toggleAjuda()"> <i
-                    class="fa-regular fa-circle-question"></i> Ajuda</button>
             <button type="submit" class="btn btn-primary shadow" onclick="calcular()">Calcular e Adicionar</button>
-            <button type="submit" class="btn btn-danger shadow" onclick="limparTabela()"><i
-                    class="fa-solid fa-trash-can px-1"></i>
-                Limpar</button>
         </div>
 
-        <h2 class="text-center my-2">ou</h2>
+        <h2 class="text-center my-3">ou</h2>
+
+        <div class="text-center">
+            <p>Clique <a href="./static/padrao-tabela.xlsx">aqui</a> para baixar a tabela modelo</p>
+        </div>
+
         <div class="d-flex justify-content-center gap-4 mt-2">
             <input type="file" id="fileInput" class="form-control w-50" accept=".xlsx" onchange="habilitarBotao()">
             <button id="btnCalcular" class="btn btn-primary" onclick="calcularInput()" disabled>Calcular</button>
@@ -71,53 +132,12 @@
 
     </section>
 
-    <section class="campo-ajuda">
-        <hr>
-        <div class="container">
-            <h3>Inserção Manual</h3>
-            <p>
-                <strong>Passo 1: </strong> Adicione o SKU (Opcional, mas pode ajudar na hora de exportar os produtos e
-                se encontrar)
-            </p>
-            <p>
-                <strong>Passo 2: </strong> Adicione o Custo do produto
-            </p>
-            <p>
-                <strong>Passo 3: </strong> Adicione o Frete do envio (Caso não for adicionado no campo, serão
-                adicionados R$6,00 automaticamente)
-            </p>
-            <p>
-                <strong>Passo 4: </strong> Clique em <span class="btn btn-primary btn-sm ">Calcular e Adicionar</span>
-                para fazer os cálculos automaticamente e adicionar na tabela os valores
-            </p>
-            <p>
-                <strong>Passo 5: </strong> Após adicionados os produtos desejados, clique em <span
-                    class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx
-                (Excel)
-            </p>
-            <hr>
-            <h3>Inserção por Tabela</h3>
-            <p>
-                <strong>Passo 1: </strong> Baixe a tabela modelo aqui:
-                <a href="./static/padrao-tabela.xlsx" class="btn btn-sucess bg-success btn-sm" role="button">Baixar</a>
-            </p>
-            <p>
-                <strong>Passo 2: </strong> Após adicionados os dados no sistema, clique em <span
-                    class="btn btn-primary btn-sm ">Calcular</span>
-                para fazer os cálculos automaticamente e adicionar na tabela os valores
-            </p>
-            <p>
-                <strong>Passo 3: </strong> Após calculados, clique em <span
-                    class="btn btn-success btn-sm ">Exportar</span> para extrair a tabela pronta no formato .xlsx
-                (Excel)
-            </p>
-
-        </div>
-    </section>
-
     <hr>
 
     <section class="container-fluid">
+        <button type="submit" class="btn btn-danger float-end shadow my-1" onclick="limparTabela()"><i
+                class="fa-solid fa-trash-can px-1"></i>
+            Limpar Tabela</button>
         <table class="table table-responsive table-bordered" id="table">
             <thead>
                 <tr>
@@ -223,8 +243,10 @@
             </tbody>
         </table>
     </section>
-    <section class="fixed-bottom mb-2 d-flex justify-content-end mx-3">
-        <button type="button" class="btn btn-success btn-lg" id="button-excel">Exportar Dados</button>
+
+    <section class="fixed-bottom mb-2 mx-3">
+        <button type="button" class="btn btn-success btn-lg w-100 border border-light shadow" id="button-excel">Exportar
+            Dados</button>
     </section>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMargens" aria-labelledby="offcanvasMagensLabel">
@@ -241,31 +263,37 @@
                 <div class="mb-3">
                     <label for="margemMLC">Mercado Livre</label>
                     <input type="number" step="0.01" id="margemMercadoLivre" class="form-control" value="1.45">
+                    <small class="text-muted">Valor Padrão = 1.45</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="margemB2W">B2W</label>
                     <input type="number" step="0.01" id="margemB2W" class="form-control" value="1.45">
+                    <small class="text-muted">Valor Padrão = 1.45</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="margemMagalu">Magazine Luiza</label>
                     <input type="number" step="0.01" id="margemMagalu" class="form-control" value="1.51">
+                    <small class="text-muted">Valor Padrão = 1.51</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="margemOlist">Olist</label>
                     <input type="number" step="0.01" id="margemOlist" class="form-control" value="1.45">
+                    <small class="text-muted">Valor Padrão = 1.45</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="margemShopee">Shopee</label>
                     <input type="number" step="0.01" id="margemShopee" class="form-control" value="1.51">
+                    <small class="text-muted">Valor Padrão = 1.51</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="margemIanni">Ianni</label>
                     <input type="number" step="0.01" id="margemIanni" class="form-control" value="1.44">
+                    <small class="text-muted">Valor Padrão = 1.44</small>
                 </div>
 
                 <button class="btn btn-primary">
@@ -355,7 +383,6 @@
                         newRow.appendChild(freteCell);
                     }
 
-                    // Adiciona a nova linha ao corpo da tabela
                     document.querySelector('#table tbody').appendChild(newRow);
                 }
             };
@@ -374,6 +401,28 @@
                 btnCalcular.disabled = true;
             }
         }
+
+        
+        document.querySelector('#offcanvasMargens button.btn-primary').addEventListener('click', function () {
+            let margemMercadoLivre = parseFloat(document.getElementById('margemMercadoLivre').value);
+            let margemB2W = parseFloat(document.getElementById('margemB2W').value);
+            let margemMagalu = parseFloat(document.getElementById('margemMagalu').value);
+            let margemOlist = parseFloat(document.getElementById('margemOlist').value);
+            let margemShopee = parseFloat(document.getElementById('margemShopee').value);
+            let margemIanni = parseFloat(document.getElementById('margemIanni').value);
+
+            porcentagemFinalMl = parseFloat(margemMercadoLivre);
+            porcentagemFinalB2W = parseFloat(margemB2W);
+            porcentagemFinalMagalu = parseFloat(margemMagalu);
+            porcentagemFinalOlist = parseFloat(margemOlist);
+            porcentagemFinalShopee = parseFloat(margemShopee);
+            porcentagemFinalIanni = parseFloat(margemIanni);
+
+            let offcanvasElement = document.getElementById('offcanvasMargens');
+            let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+            offcanvas.hide();
+        });
+        
 
 
     </script>
