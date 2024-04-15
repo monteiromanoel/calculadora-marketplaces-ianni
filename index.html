@@ -31,6 +31,7 @@
                 <button class="btn btn-light text-secondary" data-bs-toggle="modal" data-bs-target="#ajudaModal"> <i
                         class="fa-regular fa-circle-question"></i> Ajuda</button>
             </div>
+            <span class="text-light float-end"><i class="fa-solid fa-circle-exclamation" style="font-size: 20px;"></i> Valores de conversão atualizados! 15/04/2024</span>
         </div>
         <span class="navbar-brand mb-0 fs-1">Calculadora de Marketplaces</span>
     </nav>
@@ -138,7 +139,7 @@
         <button type="submit" class="btn btn-danger float-end shadow my-1" onclick="limparTabela()"><i
                 class="fa-solid fa-trash-can px-1"></i>
             Limpar Tabela</button>
-        <table class="table table-responsive table-bordered" id="table">
+        <table class="table table-responsive table-bordered table-hover" id="table">
             <thead>
                 <tr>
                     <th scope="col" class="bg-secondary">
@@ -244,7 +245,9 @@
         </table>
     </section>
 
-    <section class="fixed-bottom mb-2 mx-3">
+    <div class="separator"></div>
+
+    <section class="fixed-bottom mb-2 mx-3 mt-3">
         <button type="button" class="btn btn-success btn-lg w-100 border border-light shadow" id="button-excel">Exportar
             Dados</button>
     </section>

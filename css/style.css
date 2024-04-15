@@ -42,3 +42,7 @@ h1 {
 #resultadoTabelaInput {
     display: none;
 }
+
+.separator {
+    height: 10vh;
+}
