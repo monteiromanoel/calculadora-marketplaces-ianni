@@ -1,4 +1,4 @@
-# Projeto Agência de Viagem - API
+# Calculadora de Marketplaces - Iannistore
 <p>Projeto para apoio de precificação de produtos com os principais marketplaces do mercado. Feito com as tecnologias: </p>
 
 ### Estruturação e Estilização
