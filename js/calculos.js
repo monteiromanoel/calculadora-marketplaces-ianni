@@ -119,7 +119,7 @@ function calcularShopee(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     precoVendaFinal = 0;
     precoVenda = custo * 0.5;
 
-    while (porcentagemFinal <= 1.51) {
+    while (porcentagemFinal <= 1.52) {
         precoVenda += 1;
 
         let calculoTaxa = precoVenda * taxa;
@@ -132,8 +132,8 @@ function calcularShopee(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     return precoVendaFinal;
 }
 
-function calcularOlist(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
-    let taxa = 0.21;
+function calcularOlist(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal) {
+    let taxa = 0.115;
     let imposto = 0.10;
 
     porcentagemFinal = 0;
@@ -145,7 +145,8 @@ function calcularOlist(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
 
         let calculoTaxa = precoVenda * taxa;
         let calculoImposto = precoVenda * imposto;
-        let bruto = precoVenda - calculoTaxa - calculoImposto ;
+        let taxasFrete = calculoTaxa + calculoImposto + frete;
+        let bruto = precoVenda - taxasFrete;
         porcentagemFinal = bruto / custo;
         precoVendaFinal = precoVenda * 1.14;
     }
