@@ -15,6 +15,7 @@
     <script src="./js/calculos.js"></script>
     <script src="./js/calculosInput.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     <title>Calculadora Ianni</title>
 </head>
 
@@ -31,7 +32,7 @@
                 <button class="btn btn-light text-secondary" data-bs-toggle="modal" data-bs-target="#ajudaModal"> <i
                         class="fa-regular fa-circle-question"></i> Ajuda</button>
             </div>
-            <span class="text-light float-end"><i class="fa-solid fa-circle-exclamation" style="font-size: 20px;"></i> Valores de conversão atualizados! 15/04/2024</span>
+            <span class="text-light float-end"><i class="fa-solid fa-circle-exclamation" style="font-size: 20px;"></i> Valores de conversão atualizados! 02/05/2024</span>
         </div>
         <span class="navbar-brand mb-0 fs-1">Calculadora de Marketplaces</span>
     </nav>
@@ -88,6 +89,18 @@
                             .xlsx
                             (Excel)
                         </p>
+
+                        <hr>
+
+                        <div>
+                            <h4>Plataformas suportadas para conversão</h4>
+                            <img src="./static/logos/b2w-digital-seeklogo.svg" alt="Plataformas" class="img-fluid imgLogoBg">
+                            <img src="./static/logos/mercado-livre-seeklogo.svg" alt="Plataformas" class="img-fluid imgLogoSm">
+                            <img src="./static/logos/olist-seeklogo.svg" alt="Plataformas" class="img-fluid imgLogo">
+                            <img src="./static/logos/shopee-seeklogo.svg" alt="Plataformas" class="img-fluid imgLogoBg">
+                            <img src="./static/logos/ezgif.com-webp-to-png-converter.png" alt="Plataformas" class="img-fluid imgLogoBg">
+
+                        </div>
 
                     </div>
                 </div>
@@ -162,7 +175,7 @@
                     </th>
 
                     <th scope="col">
-                        Magazine Luiza - 1.51%
+                        Magazine Luiza - 1.52%
                     </th>
                     <th scope="col">
                         Olist - 1.45%
@@ -247,10 +260,17 @@
 
     <div class="separator"></div>
 
-    <section class="fixed-bottom mb-2 mx-3 mt-3">
+    <section class="fixed-bottom mx-3 mt-3">
         <button type="button" class="btn btn-success btn-lg w-100 border border-light shadow" id="button-excel">Exportar
             Dados</button>
+
+
+            <footer class="footer text-center mb-0">
+                <p style="margin-bottom: 0; margin-top: 10px;">Criado por <span><a href="https://github.com/monteiromanoel" target="_blank" class="link-offset-2 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Manoel</a></span> - 2024</p>
+            </footer>
     </section>
+
+    
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMargens" aria-labelledby="offcanvasMagensLabel">
         <div class="offcanvas-header">
@@ -425,6 +445,8 @@
             let offcanvas = new bootstrap.Offcanvas(offcanvasElement);
             offcanvas.hide();
         });
+
+        var clipboard = new ClipboardJS('button');
         
 
 

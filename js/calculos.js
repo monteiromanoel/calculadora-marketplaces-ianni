@@ -42,6 +42,7 @@ function calcular(){
 
 }
 
+/*
 function adicionarLinhaTabela(sku, custo, frete, valores) {
     let tabela = document.getElementById("resultadoTabela");
     let newRow = tabela.insertRow();
@@ -64,6 +65,37 @@ function adicionarLinhaTabela(sku, custo, frete, valores) {
         newCell.textContent = value;
     }
 }
+*/
+
+function adicionarLinhaTabela(sku, custo, frete, valores) {
+    let tabela = document.getElementById("resultadoTabela");
+    let newRow = tabela.insertRow();
+
+    // Inserir o SKU e o Custo nas primeiras células da linha
+    let skuCell = newRow.insertCell();
+    skuCell.textContent = sku;
+
+    let custoCell = newRow.insertCell();
+    custoCell.textContent = custo.toFixed(2).replace(".", ",");
+
+    let freteCell = newRow.insertCell();
+    freteCell.textContent = frete.toFixed(2).replace(".", ",");
+
+    // Inserir os valores nas células restantes
+    for (let i = 0; i < valores.length; i++) {
+        let cell = newRow.insertCell();
+        cell.textContent = valores[i].toFixed(2).replace(".", ",");
+
+        // Criar o botão de cópia para a célula atual
+        let copyButton = document.createElement("button");
+        copyButton.setAttribute("data-clipboard-text", cell.textContent);
+        copyButton.setAttribute("class", "fa-regular fa-copy border-0 bg-transparent px-2");
+        cell.appendChild(copyButton);
+
+        new ClipboardJS(copyButton);
+    }
+}
+
 
 function calcularMercadoLivreClassico(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal, porcentagemFinalMl) {
     let taxa = 0.115;
@@ -113,7 +145,7 @@ function calcularMercadoLivrePremium(custo, frete, precoVenda, precoVendaFinal, 
 function calcularShopee(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
     let taxa = 0.20;
     let imposto = 0.10;
-    let tarifaFixa = 3;
+    let tarifaFixa = 5;
 
     porcentagemFinal = 0;
     precoVendaFinal = 0;
@@ -177,17 +209,16 @@ function calcularB2W(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal
 }
 
 function calcularMagalu(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
-    /* 
+     
     let taxa = 0.16;
     let imposto = 0.10;
-    let tarifaFixa = 3;
+    let tarifaFixa = 5;
 
-    let precoVenda = custo * 0.8;
+    porcentagemFinal = 0;
+    precoVendaFinal = 0;
+    precoVenda = custo * 0.5;
 
-    let porcentagemFinal = 0;
-    let precoVendaFinal = 0;
-
-    while (porcentagemFinal <= 1.51) {
+    while (porcentagemFinal <= 1.5200) {
         precoVenda += 1;
 
         let calculoTaxa = precoVenda * taxa;
@@ -195,9 +226,11 @@ function calcularMagalu(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
         let bruto = precoVenda - calculoTaxa - calculoImposto - tarifaFixa;
         porcentagemFinal = bruto / custo;
         precoVendaFinal = precoVenda;
+        
     }
-    */
-    precoVendaFinal = custo * 2.08;
+    console.log("Preço final MagaLu = " + precoVendaFinal);
+    console.log("Margem: " + porcentagemFinal);
+
     return precoVendaFinal;
     //document.getElementById("margemFinalMagalu").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload de Arquivo XLSX</title>
 </head>
+
 <body>
     <input type="file" id="fileInput" accept=".xlsx">
     <table id="tabela"></table>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <script>
-        document.getElementById('fileInput').addEventListener('change', function(e) {
+       
+        document.getElementById('fileInput').addEventListener('change', function (e) {
             var file = e.target.files[0];
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 var data = new Uint8Array(e.target.result);
                 var workbook = XLSX.read(data, { type: 'array' });
                 var firstSheetName = workbook.SheetNames[0];
@@ -29,4 +32,5 @@
         });
     </script>
 </body>
+
 </html>
