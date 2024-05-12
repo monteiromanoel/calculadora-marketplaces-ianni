@@ -1,4 +1,4 @@
-function calcular(){
+function calcular() {
     let custo = parseFloat(document.getElementById("custo").value);
     let frete = parseFloat(document.getElementById("frete").value);
     let sku = document.getElementById("sku").value.trim();
@@ -6,8 +6,8 @@ function calcular(){
 
     if (isNaN(frete) || frete === 0 || frete === undefined || frete === null) {
         frete = 6;
-    }
-
+    };
+    
     if (isNaN(custo)) {
         alert("Favor, adicione um valor de custo!");
         return;
@@ -209,7 +209,7 @@ function calcularB2W(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal
 }
 
 function calcularMagalu(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
-     
+
     let taxa = 0.16;
     let imposto = 0.10;
     let tarifaFixa = 5;
@@ -226,7 +226,7 @@ function calcularMagalu(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
         let bruto = precoVenda - calculoTaxa - calculoImposto - tarifaFixa;
         porcentagemFinal = bruto / custo;
         precoVendaFinal = precoVenda;
-        
+
     }
     console.log("Preço final MagaLu = " + precoVendaFinal);
     console.log("Margem: " + porcentagemFinal);
@@ -255,7 +255,7 @@ function calcularIanni(custo, precoVenda, precoVendaFinal, porcentagemFinal) {
         precoVendaFinal = precoVenda;
     }
     */
-    precoVendaFinal = custo * 1.8;
+    precoVendaFinal = custo * 2.154;
     return precoVendaFinal;
     //document.getElementById("margemFinalIanni").textContent = porcentagemFinal.toFixed(2) + "%"; 
 }
