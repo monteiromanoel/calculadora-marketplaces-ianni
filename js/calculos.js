@@ -105,7 +105,7 @@ function calcularMercadoLivreClassico(custo, frete, precoVenda, precoVendaFinal,
     precoVendaFinal = 0;
     precoVenda = custo * 0.5;
 
-    while (porcentagemFinal <= 1.45) {
+    while (porcentagemFinal <= 1.50) {
         precoVenda += 1;
 
         let calculoTaxa = precoVenda * taxa;
@@ -194,7 +194,7 @@ function calcularB2W(custo, frete, precoVenda, precoVendaFinal, porcentagemFinal
     precoVendaFinal = 0;
     precoVenda = custo * 0.5;
 
-    while (porcentagemFinal <= 1.45) {
+    while (porcentagemFinal <= 1.52) {
         precoVenda += 1;
 
         let calculoTaxa = precoVenda * taxa;
