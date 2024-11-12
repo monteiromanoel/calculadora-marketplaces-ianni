@@ -37,7 +37,7 @@ function calcularInput() {
                     let taxasFrete = calculoTaxa + calculoImposto + frete;
                     let bruto = precoVenda - taxasFrete;
                     porcentagemFinal = bruto / custo;
-                    precoVendaFinal = precoVenda;
+                    precoVendaFinal = precoVenda + 2;
                 }
 
                 return precoVendaFinal;
@@ -60,7 +60,7 @@ function calcularInput() {
                     let taxasFrete = calculoTaxa + calculoImposto + frete;
                     let bruto = precoVenda - taxasFrete;
                     porcentagemFinal = bruto / custo;
-                    precoVendaFinal = precoVenda;
+                    precoVendaFinal = precoVenda + 2;
                 }
 
                 return precoVendaFinal;
@@ -77,14 +77,14 @@ function calcularInput() {
                 let porcentagemFinal = 0;
                 let precoVendaFinal = 0;
 
-                while (porcentagemFinal <= 1.51) {
+                while (porcentagemFinal <= 1.52) {
                     precoVenda += 1;
 
                     let calculoTaxa = precoVenda * taxa;
                     let calculoImposto = precoVenda * imposto;
                     let bruto = precoVenda - calculoTaxa - calculoImposto - tarifaFixa;
                     porcentagemFinal = bruto / custo;
-                    precoVendaFinal = precoVenda;
+                    precoVendaFinal = precoVenda + 2;
                 }
 
                 return precoVendaFinal;
@@ -99,14 +99,15 @@ function calcularInput() {
                 let porcentagemFinal = 0;
                 let precoVendaFinal = 0;
 
-                while (porcentagemFinal <= 1.45) {
+                while (porcentagemFinal <= 1.60) {
                     precoVenda += 1;
 
                     let calculoTaxa = precoVenda * taxa;
                     let calculoImposto = precoVenda * imposto;
-                    let bruto = precoVenda - calculoTaxa - calculoImposto;
+                    let taxasFrete = calculoTaxa + calculoImposto + frete;
+                    let bruto = precoVenda - taxasFrete;
                     porcentagemFinal = bruto / custo;
-                    precoVendaFinal = precoVenda * 1.14;
+                    precoVendaFinal = precoVenda + 2;
                 }
 
                 return precoVendaFinal;
@@ -121,7 +122,7 @@ function calcularInput() {
                 let porcentagemFinal = 0;
                 let precoVendaFinal = 0;
 
-                while (porcentagemFinal <= 1.45) {
+                while (porcentagemFinal <= 1.52) {
                     precoVenda += 1;
 
                     let calculoTaxa = precoVenda * taxa;
@@ -136,10 +137,10 @@ function calcularInput() {
             }
 
             function calcularMagalu(custo) {
-                /* 
-                let taxa = 0.16;
+                
+                let taxa = 0.18;
                 let imposto = 0.10;
-                let tarifaFixa = 3;
+                let tarifaFixa = 1;
             
                 let precoVenda = custo * 0.8;
             
@@ -155,32 +156,12 @@ function calcularInput() {
                     porcentagemFinal = bruto / custo;
                     precoVendaFinal = precoVenda;
                 }
-                */
-                let precoVendaFinal = custo * 2.08;
+                
                 return precoVendaFinal;
                 //document.getElementById("margemFinalMagalu").textContent = porcentagemFinal.toFixed(2) + "%"; 
             }
 
             function calcularIanni(custo) {
-                /* 
-                let taxa = 0.10;
-                let imposto = 0.10;
-            
-                let precoVenda = custo * 0.8;
-            
-                let porcentagemFinal = 0;
-                let precoVendaFinal = 0;
-            
-                while (porcentagemFinal <= 1.44) {
-                    precoVenda += 1;
-            
-                    let calculoTaxa = precoVenda * taxa;
-                    let calculoImposto = precoVenda * imposto;
-                    let bruto = precoVenda - calculoTaxa - calculoImposto;
-                    porcentagemFinal = bruto / custo;
-                    precoVendaFinal = precoVenda;
-                }
-                */
                 let precoVendaFinal = custo * 1.8;
                 return precoVendaFinal;
                 //document.getElementById("margemFinalIanni").textContent = porcentagemFinal.toFixed(2) + "%"; 
